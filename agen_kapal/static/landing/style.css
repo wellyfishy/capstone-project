@@ -1,0 +1,180 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #080c13, #0f1c2e, #080c13);
+    --accent-gradient: linear-gradient(90deg, #00b4ff, #66e0ff);
+    --accent-color: #33ccff;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg-gradient);
+    color: #e0e6ed;
+    overflow-x: hidden;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    background: rgba(10, 15, 25, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-brand {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+    color: #cfd7df !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(88,166,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+    border-color: rgba(88,166,255,0.6);
+    transition: all 0.3s ease;
+}
+.navbar-toggler:hover {
+    box-shadow: 0 0 8px rgba(88,166,255,0.4);
+    border-color: rgba(88,166,255,1);
+}
+
+/* ===== Hero ===== */
+#hero {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background: radial-gradient(circle at top center, rgba(0,180,255,0.2) 0%, transparent 70%), var(--bg-gradient);
+}
+
+#hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top center, rgba(102,224,255,0.15), transparent 70%);
+    z-index: 0;
+}
+
+#hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+#hero h1 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#hero p {
+    color: #b5bcc4;
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+.btn-glow {
+    background: var(--accent-gradient);
+    border: none;
+    color: #0b1320;
+    font-weight: 600;
+    padding: 12px 32px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0,180,255,0.5);
+}
+
+.btn-glow:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(102,224,255,0.8);
+}
+
+section {
+    padding: 100px 0;
+}
+
+section h2 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 60px;
+}
+
+/* ===== Cards & Gallery ===== */
+.project-card, .team-card {
+    background: rgba(255,255,255,0.05);
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover, .team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0,180,255,0.3);
+}
+
+.project-card img, .gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.gallery-item img {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+.team-card img {
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ===== Footer ===== */
+footer {
+    background: rgba(5,10,20,0.9);
+    color: #7d8a99;
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+footer a {
+    color: var(--accent-color);
+    margin: 0 10px;
+    font-size: 1.3rem;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0,180,255,0.8);
+}
