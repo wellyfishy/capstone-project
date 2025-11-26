@@ -1,153 +1,321 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-    <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link rel="shortcut icon" href="{% static 'landing/images/favicon.png' %}" type="">
+<html lang="en">
 
-    <title>Capstone - {% block title %} {% endblock title %}</title>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{% block title %}{% endblock title %} - Atika Shipping Agency</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'landing/css/bootstrap.css' %}" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
-    <link href="{% static 'landing/css/font-awesome.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'landing/css/style.css' %}" rel="stylesheet" />
-    <link href="{% static 'landing/css/responsive.css' %}" rel="stylesheet" />
+  <link href="{% static 'images/favicon.png' %}" rel="icon">
+  <link href="{% static 'images/favicon.png' %}" rel="apple-touch-icon">
 
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  
+
+  <link href="{% static 'landing/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <link href="{% static 'landing/css/main.css' %}" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  {% block style %}
+  <style>
+    .btn-gold {
+      background-color: #144d8dff;
+      color: black;
+      border: none;
+    }
+    .btn-gold:hover {
+      background-color: #144d8dff;
+      color: black;
+    }
+    .nav-tabs .nav-link.active {
+      color: gold !important;
+      border-bottom: 2px solid gold !important;
+      background: transparent !important;
+    }
+    .nav-tabs .nav-link {
+      color: #666;
+      border: none;
+    }
+  </style>
+  {% endblock style %}
 </head>
 
-<body>
-    <div class="hero_area">
-        <div class="bg-box">
-            <img src="{% static 'landing/images/hero-bg.jpg' %}" alt="">
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="" class="logo align-items-center">
+        <h1 class="sitename">
+          <img src="{% static 'images/favicon.png' %}" alt="" style="margin-top: -2%;">
+          Atika Shipping Agency<br>
+        </h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'index' %}" {% if on == 'index' %}class="active"{% endif %}>Home</a></li>
+          <li><a href="{% url 'layanan' %}" {% if on == 'layanan' %}class="active"{% endif %}>Layanan</a></li>
+          <li><a href="" {% if on == 'team' %}class="active"{% endif %}>Team</a></li>
+          {% if is_admin %}
+          <li><a href="">Dashboard Admin</a></li>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+          <li>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal" style="color: red; font-weight: 600;">Log Out</a>
+          </li>
+          {% else %}
+          <li>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#authModal" style="color: gold; font-weight: 600;">Log In</a>
+          </li>
+          {% endif %}
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+<main class="main">
+  <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-0 pb-0">
+          <button type="button" class="btn-close position-absolute end-0 me-3 mt-2" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <header class="header_section">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg custom_nav-container ">
-                <a class="navbar-brand" href="{% url 'index' %}">
-                    <span>
-                    Capstone Project
-                    </span>
-                </a>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class=""> </span>
+        <div class="modal-body px-4">
+          <div class="tab-content" id="authTabContent">
+            <div class="tab-pane fade show active" id="loginTab" role="tabpanel" aria-labelledby="login-tab">
+              <h5 class="fw-bold text-gold text-center mb-4">Selamat Datang Kembali 👋</h5>
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label for="loginUser" class="form-label fw-semibold">Username</label>
+                  <input type="Username" class="form-control rounded-pill" id="loginUser" name="username" placeholder="Masukkan username mu...">
+                </div>
+                <div class="mb-3">
+                  <label for="loginPassword" class="form-label fw-semibold">Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control rounded-pill" id="loginPassword" name="password" placeholder="Masukkan password mu...">
+                    <button class="btn btn-outline-secondary rounded-pill ms-2 toggle-password" type="button" data-target="loginPassword">
+                      👁
+                    </button>
+                  </div>
+                </div>
+                <div id="loginError" class="text-danger small mb-2 d-none"></div>
+                <div id="loginSuccess" class="small mb-2 d-none"></div>
+                <button type="submit" id="loginButton" class="btn btn-gold w-100 rounded-pill fw-semibold" style="color: white">
+                  Log In
                 </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav  mx-auto ">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="menu.html">Layanan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">Kontak</a>
-                    </li>
-                    </ul>
-                    <div class="user_option">
-                        <a href="" class="order_online">
-                            Log In
-                        </a>
-                    </div>
-                </div>
-                </nav>
-            </div>
-        </header>
-        {% block content %}
-        {% endblock content %}
-        <footer class="footer_section">
-            <div class="container">
-            <div class="row">
-                <div class="col-md-4 footer-col">
-                <div class="footer_contact">
-                    <h4>
-                    Contact Us
-                    </h4>
-                    <div class="contact_link_box">
-                    <a href="">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <span>
-                        Location
-                        </span>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                        <span>
-                        Call +01 1234567890
-                        </span>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <span>
-                        demo@gmail.com
-                        </span>
-                    </a>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4 footer-col">
-                <div class="footer_detail">
-                    <a href="" class="footer-logo">
-                    Feane
-                    </a>
-                    <p>
-                    Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-                    </p>
-                    <div class="footer_social">
-                    <a href="">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-linkedin" aria-hidden="true"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-pinterest" aria-hidden="true"></i>
-                    </a>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4 footer-col">
-                <h4>
-                    Opening Hours
-                </h4>
-                <p>
-                    Everyday
-                </p>
-                <p>
-                    10.00 Am -10.00 Pm
-                </p>
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-body px-4">
+          <div class="tab-content" id="authTabContent">
+            <div class="tab-pane fade show active" id="loginTab" role="tabpanel" aria-labelledby="login-tab">
+              <h5 class="fw-bold text-gold text-center mb-4">Konfirmasi Logout</h5>
+                <div class="mb-3" style="text-align: center;">
+                  <h4>Apakah anda yakin untuk logout? 😢</h4>
+                  <a href="" style="color: red; font-weight: 600;" class="btn btn-gold w-100 rounded-pill fw-semibold">Log Out</a>
                 </div>
             </div>
-            <div class="footer-info">
-                <p>
-                &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="https://html.design/">Free Html Templates</a><br><br>
-                &copy; <span id="displayYear"></span> Distributed By
-                <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-                </p>
             </div>
-            </div>
-        </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% block content %}
+    {% endblock content %}
+  </main>
 
-        <script src="{% static 'landing/js/jquery-3.4.1.min.js' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="{% static 'landing/js/bootstrap.js' %}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-        <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-        <script src="{% static 'landing/js/custom.js' %}"></script>
-    </body>
+  <footer id="footer" class="footer dark-background">
+    <div class="container">
+      <div class="social-links d-flex justify-content-center">
+        <a href="" target="_blank"><i class="bi bi-instagram"></i></a>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <span>Copyright</span><strong class="px-1 sitename">PT. Atika Jaya Samudera</strong><span>2025</span>
+        </div>
+        <div class="credits">
+          Credit: <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed:<a href="https://themewagon.com">ThemeWagon</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <script>
+    document.querySelectorAll(".toggle-password").forEach(button => {
+      button.addEventListener("click", () => {
+        const input = document.getElementById(button.dataset.target);
+        if (input.type === "password") {
+          input.type = "text";
+          button.textContent = "🙈";
+        } else {
+          input.type = "password";
+          button.textContent = "👁";
+        }
+      });
+    });
+  </script>
+  {% block script %}{% endblock script %}
+
+  <script>
+      $(document).ready(function() {
+  // Handle register form
+  $("#registerTab form").on("submit", function(e) {
+    e.preventDefault();
+
+    let email = $("#regEmail").val();
+    let password = $("#regPassword").val();
+    let confirmPassword = $("#regConfirmPassword").val();
+    let registerBtn = $(this).find("button[type='submit']");
+
+    // Remove old alerts
+    $("#registerTab .alert").remove();
+
+    // Disable button while processing
+    registerBtn.prop("disabled", true).text("Processing...");
+
+    // AJAX call
+    $.ajax({
+      url: "",  // Django endpoint for registration
+      type: "POST",
+      data: {
+        email: email,
+        password: password,
+        confirm_password: confirmPassword,
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+      },
+      success: function(response) {
+        if (response.success) {
+          $("#registerTab").prepend(
+            '<div class="alert alert-success text-center">✅ Pendaftaran berhasil! Tunggu sebentar...</div>'
+          );
+
+          setTimeout(function() {
+            location.reload();
+          }, 1500);
+          } else {
+            $("#registerTab").prepend(
+            '<div class="alert alert-danger text-center">❌ ' + response.error + '</div>'
+          );
+        }
+      },
+      error: function() {
+        $("#registerTab").prepend(
+          '<div class="alert alert-danger text-center">⚠️ Terjadi kesalahan server.</div>'
+        );
+      },
+      complete: function() {
+        // Re-enable button after 1s
+        setTimeout(() => {
+          registerBtn.prop("disabled", false).text("Register");
+        }, 1000);
+      }
+    });
+  });
+});
+
+
+    </script>
+
+
+  <script>
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    $("#loginForm").on("submit", function(e) {
+      e.preventDefault();
+      $("#loginError").addClass("d-none").text(""); // reset
+      $("#loginSuccess").addClass("d-none").text(""); // reset
+      $("#loginButton")
+        .prop("disabled", true)
+        .html('<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Logging in...');
+
+      $.ajax({
+        type: "POST",
+        url: "",   // your login URL
+        data: {
+          username: $("#loginEmail").val(),
+          password: $("#loginPassword").val(),
+          csrfmiddlewaretoken: csrftoken,
+        },
+        success: function(response) {
+          if (response.success) {
+            $("#loginSuccess")
+              .removeClass("d-none text-danger")
+              .addClass("text-success fw-semibold")
+              .text("✅ Sukses! menunggu...");
+            
+            setTimeout(function() {
+              location.reload();
+            }, 1500);
+          } else {
+            $("#loginError")
+              .removeClass("d-none")
+              .text(response.error || "Username atau password salah.");
+            }
+            $("#loginButton")
+              .prop("disabled", false)
+              .text("Log In");
+            },
+        error: function() {
+          $("#loginError").removeClass("d-none").text("Something went wrong. Try again.");
+          $("#loginButton")
+            .prop("disabled", false)
+            .text("Log In");
+          }
+      });
+    });
+
+  </script>
+
+  
+  <script src="{% static 'landing/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'landing/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'landing/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'landing/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'landing/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'landing/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'landing/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <script src="{% static 'landing/js/main.js' %}"></script>
+
+</body>
+
 </html>
