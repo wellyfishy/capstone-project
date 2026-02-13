@@ -66,6 +66,9 @@
           <li><a href="{% url 'index' %}" {% if on == 'index' %}class="active"{% endif %}>Home</a></li>
           <li><a href="{% url 'layanan' %}" {% if on == 'layanan' %}class="active"{% endif %}>Layanan</a></li>
           <li><a href="" {% if on == 'team' %}class="active"{% endif %}>Team</a></li>
+          {% if request.user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}">Dashboard Admin</a></li>
+          {% endif %}
           {% if is_admin %}
           <li><a href="">Dashboard Admin</a></li>
           {% endif %}
@@ -132,7 +135,7 @@
               <h5 class="fw-bold text-gold text-center mb-4">Konfirmasi Logout</h5>
                 <div class="mb-3" style="text-align: center;">
                   <h4>Apakah anda yakin untuk logout? 😢</h4>
-                  <a href="" style="color: red; font-weight: 600;" class="btn btn-gold w-100 rounded-pill fw-semibold">Log Out</a>
+                  <a href="{% url 'logout' %}" style="color: red; font-weight: 600;" class="btn btn-gold w-100 rounded-pill fw-semibold">Log Out</a>
                 </div>
             </div>
             </div>
@@ -269,9 +272,9 @@
 
       $.ajax({
         type: "POST",
-        url: "",   // your login URL
+        url: "{% url 'login' %}",   // your login URL
         data: {
-          username: $("#loginEmail").val(),
+          username: $("#loginUser").val(),
           password: $("#loginPassword").val(),
           csrfmiddlewaretoken: csrftoken,
         },

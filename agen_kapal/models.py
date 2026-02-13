@@ -1,5 +1,5 @@
 from django.db import models # type: ignore
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User # type: ignore
 
 
 # Untuk Web-profil
@@ -8,27 +8,19 @@ class Tentang(models.Model):
     last_edited = models.DateTimeField(null=True, blank=True)
 
 class Karyawan(models.Model):
+    STATUS = (
+        ('1', 'On'),
+        ('2', 'Off')
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
     nama_karyawan = models.CharField(max_length=100, null=True, blank=True)
     detail_karyawan = models.CharField(max_length=100, null=True, blank=True) # Sebagai CEO, Manager, dll 
     no_hp = models.CharField(max_length=20, null=True, blank=True)
+    status = models.CharField(choices=STATUS, default='1')
 
     def __str__(self):
         return self.nama_karyawan or self.user.username
-    
-class Absen(models.Model):
-    STATUS = [
-        ('1', 'Hadir'),
-        ('2', 'Izin'),
-        ('3', 'Sakit'),
-        ('4', 'Alpha')
-    ]
-    karyawan = models.ForeignKey(Karyawan, on_delete=models.CASCADE)
-    file_foto = models.FileField(upload_to='berkas_absen/', null=True, blank=True) # Digunakan untuk Face Recognition/Bukti foto kerja
-    keterangan = models.TextField()
-    status = models.CharField(choices=STATUS, default='1')
-    tanggal = models.DateTimeField(auto_now_add=True)
 
 class Layanan(models.Model):
     STATUS = [
@@ -43,6 +35,23 @@ class Layanan(models.Model):
     diedit_pada = models.DateTimeField(auto_now=True)
 
 # Untuk panel admin
+class Histori(models.Model):
+    tipe_histori = models.CharField(max_length=50, null=True, blank=True)
+    detail_histori = models.TextField()
+
+class Absen(models.Model):
+    STATUS = [
+        ('1', 'Hadir'),
+        ('2', 'Izin'),
+        ('3', 'Sakit'),
+        ('4', 'Alpha')
+    ]
+    karyawan = models.ForeignKey(Karyawan, on_delete=models.CASCADE)
+    file_foto = models.FileField(upload_to='berkas_absen/', null=True, blank=True) # Digunakan untuk Face Recognition/Bukti foto kerja
+    keterangan = models.TextField()
+    status = models.CharField(choices=STATUS, default='1')
+    tanggal = models.DateTimeField(auto_now_add=True)
+
 class Kapal(models.Model):
     imo = models.CharField(max_length=50, null=True, blank=True)
 

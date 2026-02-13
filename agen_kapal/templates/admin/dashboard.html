@@ -102,11 +102,11 @@
           </div>
           <div class="card-body">
             <ol class="activity-feed">
-              {% for riwayat in all_riwayats %}
+              {% for histori in all_histori %}
               <li class="feed-item feed-item-secondary">
-                <time class="date" datetime="">{{ riwayat.tanggal }}</time>
+                <time class="date" datetime="">{{ histori.tanggal }}</time>
                 <span class="text">
-                  {{ riwayat.user_profile.user.username }}: {{ riwayat }}
+                  {{ histori.user_profile.user.username }}: {{ histori }}
                 </span>
               </li>
               {% endfor %}

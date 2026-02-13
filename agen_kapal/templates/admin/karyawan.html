@@ -1,0 +1,224 @@
+{% extends "admin/base-dashboard.html" %} {% load static %}
+
+{% block title %}Karyawan{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+          <h3 class="fw-bold mb-3"></h3>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                    <div>
+                        <h6><b>Total Karyawan</b></h6>
+                        <p class="text-muted">Karyawan Pada PT. AJS</p>
+                    </div>
+                    <h4 class="text-info fw-bold">{{ all_karyawan.count }}</h4>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                    <p class="text-muted mb-0"></p>
+                    <p class="text-muted mb-0">
+                        <b>{{ all_karyawan.count }} Karyawan</b>
+                    </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                    <div>
+                        <h6><b>Total Karyawan (OFF)</b></h6>
+                        <p class="text-muted">Karyawan OFF Pada PT.AJS</p>
+                    </div>
+                    <h4 class="text-danger fw-bold">{{ all_karyawan_off_count }}</h4>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                    <p class="text-muted mb-0"></p>
+                    <p class="text-muted mb-0">
+                        <b>{{ all_karyawan_off_count }} Karyawan</b>
+                    </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="card-title" style="margin-right: 10px;">
+                            Karyawan PT. AJS
+                        </div>
+
+                        <div>
+                            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahKaryawanModal" style="font-size: inherit; padding: 5px 10px;">
+                                + Tambah Karyawan
+                            </a>
+                        </div>
+                        
+                        <div class="modal fade" id="tambahKaryawanModal" tabindex="-1" aria-labelledby="tambahKaryawanLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="tambahKaryawanLabel">Tambah Karyawan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Username*</label>
+                                        <input type="text" name="username" class="form-control" placeholder="Username/Kode Unik" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Password*</label>
+                                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Nama Lengkap*</label>
+                                        <input type="text" name="nama_lengkap" class="form-control" placeholder="Nama Lengkap" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Jabatan*</label>
+                                        <input type="text" name="jabatan" class="form-control" placeholder="CEO / Manager / dll" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">No HP*</label>
+                                        <input type="text" name="no_hp" class="form-control" placeholder="08xxxx">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Status*</label><br>
+                                        <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="status" checked>
+                                        <label class="form-check-label">Active</label>
+                                        </div>
+                                    </div>
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" name="tipe_submit" value="tambah_karyawan" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <table class="table table-striped mt-3">
+                        <thead>
+                            <tr>
+                            <th scope="col" style="text-align: center;">No</th>
+                            <th scope="col" style="text-align: center;">Nama Lengkap</th>
+                            <th scope="col" style="text-align: center;">USN/Kode Unik</th>
+                            <th scope="col" style="text-align: center;">Jabatan</th>
+                            <th scope="col" style="text-align: center;">Status</th>
+                            <th scope="col" style="text-align: center;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for karyawan in all_karyawan %}
+                            <tr>
+                                <td style="text-align: center;">{{ forloop.counter }}</td>
+                                <td><b>{{ karyawan }}</b></td>
+                                <td style="text-align: center;">{{ karyawan.user.username }}</td>
+                                <td style="text-align: center;">{{ karyawan.detail_karyawan }}</td>
+                                <td style="text-align: center;">
+                                    <span class="badge {% if karyawan.status == '1' %}bg-success{% else %}bg-danger{% endif %}">
+                                        {{ karyawan.get_status_display }}
+                                    </span>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editKaryawanModal{{ karyawan.id }}" style="padding: 2px 6px; font-size: 12px;">
+                                        <i class="fa fa-pen"></i>
+                                    </a>
+                                    <!-- EDIT KARYAWAN MODAL -->
+                                    <div class="modal fade" id="editKaryawanModal{{ karyawan.id }}" tabindex="-1" aria-hidden="true" style="text-align: left;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit Karyawan</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="tipe_submit" value="edit_karyawan">
+                                                <input type="hidden" name="karyawan_pk" value="{{ karyawan.pk }}">
+
+                                                <div class="modal-body">
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Nama Lengkap</label>
+                                                    <input type="text" name="nama_lengkap" class="form-control" value="{{ karyawan.nama_karyawan }}" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Jabatan</label>
+                                                    <input type="text" name="jabatan" class="form-control" value="{{ karyawan.detail_karyawan }}">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">No HP</label>
+                                                    <input type="text" name="no_hp" class="form-control" value="{{ karyawan.no_hp }}">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Status</label><br>
+                                                    <select class="form-select" name="status">
+                                                        <option value="1" {% if karyawan.status == "1" %}selected{% endif %}>On</option>
+                                                        <option value="2" {% if karyawan.status == "2" %}selected{% endif %}>Off</option>
+                                                    </select>
+                                                </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
